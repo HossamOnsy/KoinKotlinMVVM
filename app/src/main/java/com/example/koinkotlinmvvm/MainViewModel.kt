@@ -13,7 +13,6 @@ class MainViewModel(private val catRepository: CatRepository) : ViewModel() {
     val exceptionMessageReceived = MutableLiveData<String>()
 
     fun loadCats() {
-
         val gettingCatListResponse = catRepository.getCatList()
         if (gettingCatListResponse != null && gettingCatListResponse.isSuccessful && gettingCatListResponse.body() != null) {
             catListRetrievedSuccessfully.value = gettingCatListResponse.body()

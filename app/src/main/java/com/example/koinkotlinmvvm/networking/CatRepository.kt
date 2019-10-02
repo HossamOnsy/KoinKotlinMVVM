@@ -7,8 +7,7 @@ class CatRepository(private val catApi: CatApi) {
 
     fun getCatList(): Response<List<Cat>>? {
         /*
-         We try to return a list of cats from the API
-         Get the result from web service and then return it
+         We now go get list of cats from the API using our web service
          */
         return catApi.getCats(limit = 30).execute()
     }
