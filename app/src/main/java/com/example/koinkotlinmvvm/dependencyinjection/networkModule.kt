@@ -25,7 +25,8 @@ val appModules = module {
     single {
         createWebService<CatApi>(
             okHttpClient = createHttpClient(),
-            factory = RxJava2CallAdapterFactory.create(),
+            factory1 = RxJava2CallAdapterFactory.create(),
+            factory2 = CoroutineCallAdapterFactory(),
             baseUrl = CAT_API_BASE_URL
         )
     }
@@ -37,7 +38,6 @@ val appModules = module {
     }
     // Specific viewModel pattern to tell Koin how to build MainViewModel
     viewModel { MainViewModel(catRepository = get()) }
-    viewModel { BaseViewModel() }
 
 }
 
@@ -58,13 +58,14 @@ fun createHttpClient(): OkHttpClient {
 
 inline fun <reified T> createWebService(
     okHttpClient: OkHttpClient,
-    factory: CallAdapter.Factory, baseUrl: String
+    factory1: CallAdapter.Factory,
+    factory2:CoroutineCallAdapterFactory, baseUrl: String
 ): T {
     val retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .addCallAdapterFactory(factory)
+        .addCallAdapterFactory(factory1)
+        .addCallAdapterFactory(factory2)
         .client(okHttpClient)
         .build()
     return retrofit.create(T::class.java)
