@@ -9,8 +9,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     // Instantiate viewModel with Koin
     protected abstract fun getContentLayout(): Int
-    lateinit var viewModel : BaseViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
