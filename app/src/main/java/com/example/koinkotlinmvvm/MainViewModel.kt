@@ -14,7 +14,7 @@ class MainViewModel(private val catRepository: CatRepository) : ViewModel() {
 
     fun loadCats() {
         val gettingCatListResponse = catRepository.getCatList()
-        if (gettingCatListResponse != null && gettingCatListResponse.isSuccessful && gettingCatListResponse.body() != null) {
+        if (gettingCatListResponse?.body() != null && gettingCatListResponse.isSuccessful) {
             catListRetrievedSuccessfully.value = gettingCatListResponse.body()
         } else {
             try {
