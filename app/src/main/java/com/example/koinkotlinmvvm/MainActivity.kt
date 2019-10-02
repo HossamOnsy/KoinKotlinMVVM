@@ -12,15 +12,20 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
-
     // Instantiate viewModel with Koin
     private val mainViewModel: MainViewModel by inject()
+    //
     private lateinit var catAdapter: CatAdapter
 
+    // first function that is entered in order to create the MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        catAdapter = CatAdapter()
+
+        // initializing list adapter with emptylist which will be updated later when we get our response from the api
+        catAdapter = CatAdapter(emptyList())
+
+        // apply allows you to alter variables inside the object and assign them
         catsRecyclerView.apply {
             // Displaying data in a Grid design
             layoutManager = GridLayoutManager(this@MainActivity, 3)
@@ -46,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             catAdapter.updateData(newCatsList!!)
         })
 
-        // The observers are set, we can now ask API to load a data list
+        // The observers are set, we can now ask API to load our cat list
         mainViewModel.loadCats()
     }
 

@@ -14,8 +14,12 @@ class MainViewModel(private val catRepository: CatRepository) : ViewModel(), Cor
     // Define default thread for Coroutine as Main and add job
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
+    // MutableLiveData is a type of class that allows you to observe when a value is set to it
+    // this allows to initiate loading for user experience
     val showLoading = MutableLiveData<Boolean>()
+    // this allows to listen to the catslist when we get a list from our request
     val catsList = MutableLiveData<List<Cat>>()
+    // this allows to listen to errors and observe on exceptions to show them for user
     val showError = MutableLiveData<String>()
 
     fun loadCats() {

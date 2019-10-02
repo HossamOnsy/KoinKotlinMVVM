@@ -8,9 +8,13 @@ import org.koin.dsl.module
 
 const val CAT_API_BASE_URL = "https://api.thecatapi.com/v1/"
 
+// this module is being used in our class that extends Application which will start Koin and allow dependency injection
+// definition for dependency injection here -> https://en.wikipedia.org/wiki/Dependency_injection
 val appModules = module {
 
+    // this creates instance of CatApi which will allow us to call our api and get our list
     single {
+        // this is a method in a global object that we can access it's method and give it the required parameters
         createWebService(
             okHttpClient = createHttpClient(),
             factory1 = CoroutineCallAdapterFactory(),
