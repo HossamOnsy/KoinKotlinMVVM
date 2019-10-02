@@ -1,6 +1,7 @@
 package com.example.koinkotlinmvvm.view
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -41,13 +42,17 @@ class MainActivity : AppCompatActivity() {
         // Observe exceptionMessageReceived value and display the error message as a Toast
         mainViewModel.exceptionMessageReceived.observe(this, Observer { exceptionMessageReceived ->
             Toast.makeText(this, exceptionMessageReceived, Toast.LENGTH_SHORT).show()
+            mainProgressBar.visibility = View.GONE
         })
+
         // Observe catListRetrievedSuccessfully and update our adapter if we get new list from API
         mainViewModel.catListRetrievedSuccessfully.observe(this, Observer { newCatsList ->
             catAdapter.updateData(newCatsList!!)
+            mainProgressBar.visibility = View.GONE
         })
 
         // telling our viewModel to start fetching cats from our api
+        mainProgressBar.visibility = View.VISIBLE
         mainViewModel.loadCats()
     }
 
