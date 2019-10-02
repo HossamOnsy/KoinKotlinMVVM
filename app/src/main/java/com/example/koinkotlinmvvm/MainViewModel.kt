@@ -1,16 +1,14 @@
-package com.example.koinkotlinmvvm.viewmodel
+package com.example.koinkotlinmvvm
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.koinkotlinmvvm.base.BaseViewModel
-import com.example.koinkotlinmvvm.models.Cat
-import com.example.koinkotlinmvvm.models.UseCaseResult
-import com.example.koinkotlinmvvm.repository.CatRepository
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
-import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 
-class MainViewModel(private val catRepository: CatRepository) : BaseViewModel(), CoroutineScope {
+class MainViewModel(private val catRepository: CatRepository) : ViewModel(), CoroutineScope {
+
     // Coroutine's background job
     private val job = Job()
     // Define default thread for Coroutine as Main and add job
@@ -33,7 +31,7 @@ class MainViewModel(private val catRepository: CatRepository) : BaseViewModel(),
             when (result) {
                 is UseCaseResult.Success -> catsList.value = result.data
                 is UseCaseResult.Error -> {
-                    Timber.d("TestTestTest is -> ${result.exception.message}")
+                    Log.v("TestTestTest", result.exception.message)
                     showError.value = result.exception.message
                 }
             }

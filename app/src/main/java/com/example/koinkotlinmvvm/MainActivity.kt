@@ -1,30 +1,25 @@
-package com.example.koinkotlinmvvm.view
+package com.example.koinkotlinmvvm
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.koinkotlinmvvm.viewmodel.MainViewModel
-import com.example.koinkotlinmvvm.R
-import com.example.koinkotlinmvvm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
 
     // Instantiate viewModel with Koin
     private val mainViewModel: MainViewModel by inject()
     private lateinit var catAdapter: CatAdapter
-    override fun getContentLayout() = R.layout.activity_main
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_main)
         catAdapter = CatAdapter()
         catsRecyclerView.apply {
             // Displaying data in a Grid design
@@ -40,7 +35,7 @@ class MainActivity : BaseActivity() {
 
         // Observe showLoading value and display or hide our activity's progressBar
         mainViewModel.showLoading.observe(this, Observer { showLoading ->
-            progressBar.visibility = if (showLoading!!) View.VISIBLE else View.GONE
+            mainProgressBar.visibility = if (showLoading!!) View.VISIBLE else View.GONE
         })
         // Observe showError value and display the error message as a Toast
         mainViewModel.showError.observe(this, Observer { showError ->
