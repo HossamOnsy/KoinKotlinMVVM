@@ -1,4 +1,4 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.models
 
 import com.google.gson.annotations.SerializedName
 

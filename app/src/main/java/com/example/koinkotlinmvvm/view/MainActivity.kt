@@ -1,4 +1,4 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.activity_base.*
+import com.example.koinkotlinmvvm.MainViewModel
+import com.example.koinkotlinmvvm.R
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 

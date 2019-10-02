@@ -1,7 +1,8 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.networking
 
-import com.example.koinkotlinmvvm.NetworkUtils.createHttpClient
-import com.example.koinkotlinmvvm.NetworkUtils.createWebService
+import com.example.koinkotlinmvvm.MainViewModel
+import com.example.koinkotlinmvvm.utils.NetworkUtils.createHttpClient
+import com.example.koinkotlinmvvm.utils.NetworkUtils.createWebService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module

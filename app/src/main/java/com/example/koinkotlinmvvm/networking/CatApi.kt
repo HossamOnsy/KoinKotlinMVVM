@@ -1,5 +1,6 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.networking
 
+import com.example.koinkotlinmvvm.models.Cat
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query

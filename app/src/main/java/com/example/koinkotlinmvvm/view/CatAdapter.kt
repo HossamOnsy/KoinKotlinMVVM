@@ -1,12 +1,13 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.koinkotlinmvvm.R
+import com.example.koinkotlinmvvm.models.Cat
 import kotlinx.android.synthetic.main.item_cat.view.*
-import kotlin.properties.Delegates
 
 class CatAdapter(var catsList: List<Cat>) : RecyclerView.Adapter<CatAdapter.CatViewHolder>() {
 

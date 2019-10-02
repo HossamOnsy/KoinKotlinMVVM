@@ -1,13 +1,12 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.utils
 
+import com.example.koinkotlinmvvm.networking.CatApi
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 object NetworkUtils {
 

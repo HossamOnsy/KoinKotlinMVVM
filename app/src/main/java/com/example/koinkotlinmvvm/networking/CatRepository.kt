@@ -1,4 +1,7 @@
-package com.example.koinkotlinmvvm
+package com.example.koinkotlinmvvm.networking
+
+import com.example.koinkotlinmvvm.models.Cat
+import com.example.koinkotlinmvvm.models.UseCaseResult
 
 interface CatRepository {
     // Suspend is used to await the result from Deferred

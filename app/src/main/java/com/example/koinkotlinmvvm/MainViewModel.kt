@@ -3,6 +3,9 @@ package com.example.koinkotlinmvvm
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.koinkotlinmvvm.models.Cat
+import com.example.koinkotlinmvvm.models.UseCaseResult
+import com.example.koinkotlinmvvm.networking.CatRepository
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
