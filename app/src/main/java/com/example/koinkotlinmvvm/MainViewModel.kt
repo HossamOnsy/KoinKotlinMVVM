@@ -17,10 +17,10 @@ class MainViewModel(private val catRepository: CatRepository) : ViewModel() {
     val exceptionMessageReceived = MutableLiveData<String>()
 
     fun loadCats() {
-        // we need to execute our network call in the background in order not to block our ui so we will use runnable
-        // and execute it using AsyncTask
         val runnable = Runnable {
-            val gettingCatListResponse = catRepository.getCatList()
+            // we need to execute our network call in the background in order not to block our ui so we will use runnable
+            // and execute it using AsyncTask which will be outside of the runnable
+            val gettingCatListResponse = catRepository.getCatList() // here we will be doing our network call
             // now we need to get back from background thread so we will use Handler
             Handler(Looper.getMainLooper()).post {
                 if (gettingCatListResponse?.body() != null && gettingCatListResponse.isSuccessful) {
