@@ -1,9 +1,7 @@
 package com.example.koinkotlinmvvm.networking
 
 import com.example.koinkotlinmvvm.MainViewModel
-import com.example.koinkotlinmvvm.utils.NetworkUtils.createHttpClient
 import com.example.koinkotlinmvvm.utils.NetworkUtils.createWebService
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -13,22 +11,8 @@ const val CAT_API_BASE_URL = "https://api.thecatapi.com/v1/"
 // definition for dependency injection here -> https://en.wikipedia.org/wiki/Dependency_injection
 val appModules = module {
 
-    // this creates instance of CatApi which will allow us to call our api and get our list
-    single {
-        // this is a method in a global object that we can access it's method and give it the required parameters
-        createWebService(
-            okHttpClient = createHttpClient(),
-            factory1 = CoroutineCallAdapterFactory(),
-            baseUrl = CAT_API_BASE_URL
-        )
-    }
-    // Tells Koin how to create an instance of CatRepository
-    factory<CatRepository> {
-        CatRepositoryImpl(
-            catApi = get()
-        )
-    }
-    // Specific viewModel pattern to tell Koin how to build MainViewModel
+    single { createWebService() }
+    single { CatRepository(catApi = get()) }
     viewModel { MainViewModel(catRepository = get()) }
 
 }

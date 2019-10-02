@@ -26,10 +26,14 @@ class CatAdapter(var catsList: List<Cat>) : RecyclerView.Adapter<CatAdapter.CatV
     // the recyclerView
     override fun onBindViewHolder(holder: CatViewHolder, position: Int) {
         // Verify if position exists in list to avoid IndexOutOfBoundException
-        if (position != RecyclerView.NO_POSITION) {
-            val cat: Cat = catsList[position]
-            holder.bind(cat)
-        }
+        val cat: Cat = catsList[position]
+
+        // Glide is image library that is used to fetch images from url and put them into our imageView
+        Glide.with(holder.itemView.context)
+            .load(cat.imageUrl)
+            .centerCrop()
+            .thumbnail()
+            .into(holder.itemCatImageView)
     }
 
     // Update recyclerView's data when we get it from our API
@@ -41,17 +45,6 @@ class CatAdapter(var catsList: List<Cat>) : RecyclerView.Adapter<CatAdapter.CatV
 
     // ViewHolder that would have an ImageView that would changed depending on which item needs to be drawn in it
     class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(cat: Cat) {
-            // Load images into ImageView using Glide library
-            Glide.with(itemView.context)
-                // .load loads the url from the internet
-                .load(cat.imageUrl)
-                    // .centerCrop crops the image after fetching it to fit the imageView
-                .centerCrop()
-                    // .thumbnail allows thumbnail for the image
-                .thumbnail()
-                // .into tells glide where to put the image
-                .into(itemView.itemCatImageView)
-        }
+        val itemCatImageView = itemView.itemCatImageView
     }
 }

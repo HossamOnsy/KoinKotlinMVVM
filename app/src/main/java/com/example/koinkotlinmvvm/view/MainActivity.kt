@@ -1,7 +1,6 @@
 package com.example.koinkotlinmvvm.view
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     // Instantiate viewModel with Koin
     private val mainViewModel: MainViewModel by inject()
-    //
     private lateinit var catAdapter: CatAdapter
 
     // first function that is entered in order to create the MainActivity
@@ -23,36 +21,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // initializing list adapter with emptylist which will be updated later when we get our response from the api
-        catAdapter = CatAdapter(emptyList())
-
-        // apply allows you to alter variables inside the object and assign them
-        catsRecyclerView.apply {
-            // Displaying data in a Grid design
-            layoutManager = GridLayoutManager(this@MainActivity, 3)
-            adapter = catAdapter
-        }
+        // initializing recyclerview with required parameters
+        initiateRecyclerView()
         // Initiate the observers on viewModel fields and then starts the API request
         initViewModel()
     }
 
+    private fun initiateRecyclerView() {
+        // initializing catAdapter with empty list
+        catAdapter = CatAdapter(emptyList())
+        // apply allows you to alter variables inside the object and assign them
+        catsRecyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)
+        catsRecyclerView.adapter = catAdapter
+
+    }
 
     fun initViewModel() {
 
-        // Observe showLoading value and display or hide our activity's progressBar
-        mainViewModel.showLoading.observe(this, Observer { showLoading ->
-            mainProgressBar.visibility = if (showLoading!!) View.VISIBLE else View.GONE
+        // Observe exceptionMessageReceived value and display the error message as a Toast
+        mainViewModel.exceptionMessageReceived.observe(this, Observer { exceptionMessageReceived ->
+            Toast.makeText(this, exceptionMessageReceived, Toast.LENGTH_SHORT).show()
         })
-        // Observe showError value and display the error message as a Toast
-        mainViewModel.showError.observe(this, Observer { showError ->
-            Toast.makeText(this, showError, Toast.LENGTH_SHORT).show()
-        })
-        // Observe catsList and update our adapter if we get new one from API
-        mainViewModel.catsList.observe(this, Observer { newCatsList ->
+        // Observe catListRetrievedSuccessfully and update our adapter if we get new list from API
+        mainViewModel.catListRetrievedSuccessfully.observe(this, Observer { newCatsList ->
             catAdapter.updateData(newCatsList!!)
         })
 
-        // The observers are set, we can now ask API to load our cat list
+        // telling our viewModel to start fetching cats from our api
         mainViewModel.loadCats()
     }
 

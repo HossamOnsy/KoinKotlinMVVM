@@ -1,27 +1,15 @@
 package com.example.koinkotlinmvvm.networking
 
 import com.example.koinkotlinmvvm.models.Cat
-import com.example.koinkotlinmvvm.models.UseCaseResult
+import retrofit2.Response
 
-interface CatRepository {
-    // Suspend is used to await the result from Deferred
-   suspend fun getCatList(): UseCaseResult<List<Cat>>
-}
+class CatRepository(private val catApi: CatApi) {
 
-class CatRepositoryImpl(private val catApi: CatApi) :
-    CatRepository {
-
-    override suspend fun getCatList(): UseCaseResult<List<Cat>> {
+    fun getCatList(): Response<List<Cat>>? {
         /*
          We try to return a list of cats from the API
          Await the result from web service and then return it, catching any error from API
          */
-        return try {
-            val result = catApi.getCats(limit = 30).await()
-            UseCaseResult.Success(result)
-        } catch (ex: Exception) {
-            UseCaseResult.Error(ex)
-        }
-
+        return catApi.getCats(limit = 30).execute()
     }
 }
